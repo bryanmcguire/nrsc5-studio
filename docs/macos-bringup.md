@@ -8,6 +8,8 @@ album art, CoreAudio output) on macOS 26 / Intel with an RTL-SDR Blog V3;
 the same recipe is expected to carry to Apple Silicon with
 `NRSC5_USE_SSE=OFF`.
 
+![NRSC5 Studio running natively on macOS — KROQ 106.7 HD1/HD2, MER 15.2 dB, BER 0.00000](screenshot-macos.png)
+
 ## 1. Toolchain
 
 ```bash
