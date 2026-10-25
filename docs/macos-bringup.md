@@ -153,3 +153,15 @@ with an image-not-found error, redo step 2a (or set
   out of scope for this bring-up.
 - Apple Silicon: unverified. Expected deltas: `NRSC5_USE_SSE=OFF` for
   the libnrsc5 build and re-signing after install-name surgery (2a).
+- Rare segfault at device close (observed once in two days of heavy
+  use): SIGSEGV in libusb's darwin backend (`do_close`, null + 0x8)
+  via `SoapyRTLSDR::~SoapyRTLSDR` → `rtlsdr_close`, on app quit. The
+  app's own teardown ordering is correct (streams deactivate and close
+  before the device is unmade — verified against `src/sdr/soapy.rs`),
+  so the race lives below the app, in the
+  SoapyRTLSDR/librtlsdr/libusb-darwin close sequence; macOS's libusb
+  backend punishes librtlsdr's async-cancel teardown race harder than
+  Linux's does. Harmless in practice (fires at exit, after state is
+  saved) but worth knowing when triaging macOS crash reports — the
+  `.ips` will blame libusb, not this codebase. Seen with libusb
+  1.0.29.
