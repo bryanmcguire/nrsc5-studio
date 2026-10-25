@@ -141,6 +141,16 @@ libSoapySDR than the one whose modules you installed — check with
 with an image-not-found error, redo step 2a (or set
 `DYLD_LIBRARY_PATH="$SDR_PREFIX/lib"` as a temporary check).
 
+## Feature coverage
+
+Every pane has now been exercised live on macOS: tuner and HD1–HD4
+program switching, PSD metadata, album art and collage, play log,
+spectrum + waterfall, station logos, and — on an iHeart station
+carrying the data services (KOST 103.5, Los Angeles) — the weather
+radar overlay (DWRO, which also confirms the `res/map.png` basemap
+loads; without it overlays are dropped silently) and traffic map
+tiles. Session recording configured but not soak-tested.
+
 ## Known gaps
 
 - No macOS packaging yet: no .app bundle, no signed/notarized build,
